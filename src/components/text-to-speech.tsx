@@ -10,8 +10,9 @@ import {
   SelectTrigger,
   SelectValue,
 } from "@/components/ui/select";
-import { Play, Download, Loader2, Languages } from "lucide-react";
+import { Play, Loader2, Languages } from "lucide-react";
 import { useGroq } from "@/hooks/use-groq";
+import { AudioPlayer } from "@/components/audio-player";
 import type { Language, VoiceOptions, LanguageOption } from "@/types";
 
 // Available voices for different languages
@@ -59,7 +60,6 @@ export function TextToSpeech() {
   );
   const [isGenerating, setIsGenerating] = useState<boolean>(false);
   const [audioUrl, setAudioUrl] = useState<string | null>(null);
-  const [isPlaying, setIsPlaying] = useState<boolean>(false);
   const [error, setError] = useState<string | null>(null);
 
   // Update voice when language changes
@@ -106,35 +106,6 @@ export function TextToSpeech() {
     } finally {
       setIsGenerating(false);
     }
-  };
-
-  const playAudio = () => {
-    if (!audioUrl) return;
-
-    const audio = new Audio(audioUrl);
-    setIsPlaying(true);
-
-    audio.onended = () => setIsPlaying(false);
-    audio.onerror = () => {
-      setIsPlaying(false);
-      setError("Error playing audio");
-    };
-
-    audio.play().catch(() => {
-      setIsPlaying(false);
-      setError("Error playing audio");
-    });
-  };
-
-  const downloadAudio = () => {
-    if (!audioUrl) return;
-
-    const a = document.createElement("a");
-    a.href = audioUrl;
-    a.download = `speech-${selectedLanguage}-${selectedVoice}-${Date.now()}.wav`;
-    document.body.appendChild(a);
-    a.click();
-    document.body.removeChild(a);
   };
 
   const currentVoices = voiceOptions[selectedLanguage];
@@ -244,31 +215,13 @@ export function TextToSpeech() {
             </div>
           )}
 
-          {/* Audio Controls */}
+          {/* Audio Player */}
           {audioUrl && (
-            <Card className="bg-green-50 border-green-200 dark:bg-green-900/20 dark:border-green-800">
-              <CardContent className="pt-6">
-                <div className="flex flex-col sm:flex-row gap-3">
-                  <Button
-                    onClick={playAudio}
-                    disabled={isPlaying}
-                    variant="outline"
-                    className="flex-1"
-                  >
-                    <Play className="mr-2 h-4 w-4" />
-                    {isPlaying ? "Playing..." : "Play Audio"}
-                  </Button>
-                  <Button
-                    onClick={downloadAudio}
-                    variant="outline"
-                    className="flex-1"
-                  >
-                    <Download className="mr-2 h-4 w-4" />
-                    Download
-                  </Button>
-                </div>
-              </CardContent>
-            </Card>
+            <AudioPlayer
+              src={audioUrl}
+              title={`speech-${selectedLanguage}-${selectedVoice}-${Date.now()}.wav`}
+              onError={(error) => setError(error)}
+            />
           )}
 
           {/* API Key Information */}

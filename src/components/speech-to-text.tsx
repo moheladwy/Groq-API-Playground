@@ -1,6 +1,7 @@
 import { useState, useRef, useEffect } from "react";
 import { Button } from "@/components/ui/button";
 import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
+import { Textarea } from "@/components/ui/textarea";
 import { Label } from "@/components/ui/label";
 import {
   Select,
@@ -10,22 +11,20 @@ import {
   SelectValue,
 } from "@/components/ui/select";
 import {
+  FileAudio,
   Upload,
   Mic,
   StopCircle,
-  Play,
-  Pause,
-  FileAudio,
-  Loader2,
   X,
+  Loader2,
   Info,
   Languages,
-  Zap,
   Target,
+  Zap,
   DollarSign,
 } from "lucide-react";
 import { useGroq } from "@/hooks/use-groq";
-import { Textarea } from "@/components/ui/textarea";
+import { AudioPlayer } from "@/components/audio-player";
 
 // Model specifications
 const models = [
@@ -118,7 +117,6 @@ export function SpeechToText() {
   const [file, setFile] = useState<File | null>(null);
   const [recordedBlob, setRecordedBlob] = useState<File | null>(null);
   const [isRecording, setIsRecording] = useState(false);
-  const [isPlaying, setIsPlaying] = useState(false);
   const [isTranscribing, setIsTranscribing] = useState(false);
   const [transcriptionResult, setTranscriptionResult] = useState<string>("");
   const [error, setError] = useState<string | null>(null);
@@ -130,7 +128,6 @@ export function SpeechToText() {
   const mediaRecorderRef = useRef<MediaRecorder | null>(null);
   const audioChunksRef = useRef<Blob[]>([]);
   const recordingIntervalRef = useRef<NodeJS.Timeout | null>(null);
-  const audioRef = useRef<HTMLAudioElement>(null);
 
   // Cleanup audio URL when component unmounts
   useEffect(() => {
@@ -263,18 +260,6 @@ export function SpeechToText() {
     if (mediaRecorderRef.current && isRecording) {
       mediaRecorderRef.current.stop();
       setIsRecording(false);
-    }
-  };
-
-  const playAudio = () => {
-    if (audioRef.current && audioUrl) {
-      if (isPlaying) {
-        audioRef.current.pause();
-        setIsPlaying(false);
-      } else {
-        audioRef.current.play();
-        setIsPlaying(true);
-      }
     }
   };
 
@@ -453,29 +438,11 @@ export function SpeechToText() {
 
                   {/* Audio Player */}
                   {audioUrl && (
-                    <div className="flex items-center gap-3">
-                      <Button
-                        variant="outline"
-                        size="sm"
-                        onClick={playAudio}
-                        className="flex items-center gap-2"
-                      >
-                        {isPlaying ? (
-                          <Pause className="h-4 w-4" />
-                        ) : (
-                          <Play className="h-4 w-4" />
-                        )}
-                        {isPlaying ? "Pause" : "Play"}
-                      </Button>
-                      <audio
-                        ref={audioRef}
-                        src={audioUrl}
-                        onEnded={() => setIsPlaying(false)}
-                        onPlay={() => setIsPlaying(true)}
-                        onPause={() => setIsPlaying(false)}
-                        className="hidden"
-                      />
-                    </div>
+                    <AudioPlayer
+                      src={audioUrl}
+                      title={file ? file.name : "Recorded Audio"}
+                      onError={(error) => setError(error)}
+                    />
                   )}
                 </div>
               )}
