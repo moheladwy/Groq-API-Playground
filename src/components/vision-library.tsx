@@ -1,7 +1,7 @@
 import { useState } from "react";
 import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
 import { Badge } from "@/components/ui/badge";
-import { Button } from "@/components/ui/button";
+
 import { Tabs, TabsContent, TabsList, TabsTrigger } from "@/components/ui/tabs";
 import {
   Eye,
@@ -9,25 +9,19 @@ import {
   Target,
   Image as ImageIcon,
   FileText,
-  Languages,
-  Zap,
   Brain,
   Scan,
   Camera,
   Palette,
-  Users,
   Globe,
   Info,
   Star,
   CheckCircle,
   XCircle,
-  Clock,
   DollarSign,
   Layers,
-  Code,
   BookOpen,
   Lightbulb,
-  Shield,
   Cpu,
 } from "lucide-react";
 
@@ -37,7 +31,8 @@ const visionModels = [
     id: "meta-llama/llama-4-scout-17b-16e-instruct",
     name: "Llama 4 Scout",
     shortName: "Scout",
-    description: "A powerful multimodal model capable of processing both text and image inputs with multilingual support, tool use, and JSON mode.",
+    description:
+      "A powerful multimodal model capable of processing both text and image inputs with multilingual support, tool use, and JSON mode.",
     type: "Vision-Language Model",
     developer: "Meta",
     version: "17B Parameters",
@@ -179,7 +174,8 @@ const visionModels = [
       freeQuota: "Limited free tier",
       enterprise: "Custom pricing available",
     },
-    recommended: "Best for complex visual analysis and reasoning tasks with multilingual support",
+    recommended:
+      "Best for complex visual analysis and reasoning tasks with multilingual support",
     icon: Sparkles,
     color: "text-blue-500",
     bgColor: "bg-blue-50 dark:bg-blue-900/20",
@@ -189,7 +185,8 @@ const visionModels = [
     id: "meta-llama/llama-4-maverick-17b-128e-instruct",
     name: "Llama 4 Maverick",
     shortName: "Maverick",
-    description: "Advanced multimodal model with extended context window for complex image analysis and detailed visual understanding.",
+    description:
+      "Advanced multimodal model with extended context window for complex image analysis and detailed visual understanding.",
     type: "Vision-Language Model",
     developer: "Meta",
     version: "17B Parameters",
@@ -331,7 +328,8 @@ const visionModels = [
       freeQuota: "Limited free tier",
       enterprise: "Custom pricing available",
     },
-    recommended: "Ideal for detailed image analysis and extended conversations requiring deep understanding",
+    recommended:
+      "Ideal for detailed image analysis and extended conversations requiring deep understanding",
     icon: Target,
     color: "text-purple-500",
     bgColor: "bg-purple-50 dark:bg-purple-900/20",
@@ -343,38 +341,73 @@ const visionModels = [
 const visionCapabilities = [
   {
     category: "Object Recognition",
-    description: "Identify and classify objects, people, animals, and items in images",
-    examples: ["Product identification", "Wildlife recognition", "Vehicle detection", "Person identification"],
+    description:
+      "Identify and classify objects, people, animals, and items in images",
+    examples: [
+      "Product identification",
+      "Wildlife recognition",
+      "Vehicle detection",
+      "Person identification",
+    ],
     icon: Eye,
   },
   {
     category: "Scene Understanding",
-    description: "Comprehensive analysis of environments, settings, and contexts",
-    examples: ["Location identification", "Activity recognition", "Atmosphere analysis", "Setting description"],
+    description:
+      "Comprehensive analysis of environments, settings, and contexts",
+    examples: [
+      "Location identification",
+      "Activity recognition",
+      "Atmosphere analysis",
+      "Setting description",
+    ],
     icon: Camera,
   },
   {
     category: "Text Extraction (OCR)",
     description: "Extract and interpret text from images, documents, and signs",
-    examples: ["Document digitization", "Sign reading", "Handwriting recognition", "Label extraction"],
+    examples: [
+      "Document digitization",
+      "Sign reading",
+      "Handwriting recognition",
+      "Label extraction",
+    ],
     icon: FileText,
   },
   {
     category: "Visual Reasoning",
-    description: "Analyze relationships, patterns, and logical connections in visual data",
-    examples: ["Cause-effect analysis", "Pattern recognition", "Logical deduction", "Problem solving"],
+    description:
+      "Analyze relationships, patterns, and logical connections in visual data",
+    examples: [
+      "Cause-effect analysis",
+      "Pattern recognition",
+      "Logical deduction",
+      "Problem solving",
+    ],
     icon: Brain,
   },
   {
     category: "Creative Analysis",
-    description: "Evaluate artistic elements, style, composition, and aesthetic qualities",
-    examples: ["Art critique", "Design feedback", "Style analysis", "Creative suggestions"],
+    description:
+      "Evaluate artistic elements, style, composition, and aesthetic qualities",
+    examples: [
+      "Art critique",
+      "Design feedback",
+      "Style analysis",
+      "Creative suggestions",
+    ],
     icon: Palette,
   },
   {
     category: "Technical Analysis",
-    description: "Interpret technical diagrams, charts, graphs, and specialized imagery",
-    examples: ["Engineering drawings", "Medical scans", "Scientific data", "Technical documentation"],
+    description:
+      "Interpret technical diagrams, charts, graphs, and specialized imagery",
+    examples: [
+      "Engineering drawings",
+      "Medical scans",
+      "Scientific data",
+      "Technical documentation",
+    ],
     icon: Scan,
   },
 ];
@@ -383,29 +416,44 @@ const visionCapabilities = [
 const useCaseTemplates = [
   {
     title: "E-commerce Product Analysis",
-    description: "Automatically generate product descriptions and analyze product images",
-    prompt: "Analyze this product image and provide a detailed description including features, style, and potential uses.",
+    description:
+      "Automatically generate product descriptions and analyze product images",
+    prompt:
+      "Analyze this product image and provide a detailed description including features, style, and potential uses.",
     industries: ["Retail", "E-commerce", "Marketing"],
-    benefits: ["Automated content creation", "Consistent descriptions", "Time savings"],
+    benefits: [
+      "Automated content creation",
+      "Consistent descriptions",
+      "Time savings",
+    ],
   },
   {
     title: "Medical Image Insights",
-    description: "Assist healthcare professionals with preliminary image analysis",
-    prompt: "Describe the anatomical structures and any notable features visible in this medical image.",
+    description:
+      "Assist healthcare professionals with preliminary image analysis",
+    prompt:
+      "Describe the anatomical structures and any notable features visible in this medical image.",
     industries: ["Healthcare", "Medical", "Research"],
-    benefits: ["Preliminary insights", "Educational support", "Documentation assistance"],
+    benefits: [
+      "Preliminary insights",
+      "Educational support",
+      "Documentation assistance",
+    ],
   },
   {
     title: "Educational Content Creation",
-    description: "Generate educational materials and explanations from visual content",
-    prompt: "Explain what's happening in this image in simple terms suitable for educational purposes.",
+    description:
+      "Generate educational materials and explanations from visual content",
+    prompt:
+      "Explain what's happening in this image in simple terms suitable for educational purposes.",
     industries: ["Education", "Training", "E-learning"],
     benefits: ["Accessible content", "Visual learning", "Engagement"],
   },
   {
     title: "Accessibility Support",
     description: "Create detailed descriptions for visually impaired users",
-    prompt: "Provide a comprehensive description of this image for someone who cannot see it.",
+    prompt:
+      "Provide a comprehensive description of this image for someone who cannot see it.",
     industries: ["Accessibility", "Public Service", "Technology"],
     benefits: ["Inclusive design", "Compliance", "Better user experience"],
   },
@@ -413,9 +461,8 @@ const useCaseTemplates = [
 
 export function VisionLibrary() {
   const [selectedModel, setSelectedModel] = useState<string | null>(null);
-  const [selectedCategory, setSelectedCategory] = useState<string | null>(null);
 
-  const ModelCard = ({ model }: { model: typeof visionModels[0] }) => {
+  const ModelCard = ({ model }: { model: (typeof visionModels)[0] }) => {
     const Icon = model.icon;
     const isSelected = selectedModel === model.id;
 
@@ -424,7 +471,7 @@ export function VisionLibrary() {
         className={`cursor-pointer transition-all duration-300 hover:shadow-lg ${
           isSelected
             ? `ring-2 ring-primary shadow-xl scale-105 ${model.bgColor} ${model.borderColor}`
-            : 'hover:shadow-md hover:scale-102'
+            : "hover:shadow-md hover:scale-102"
         }`}
         onClick={() => setSelectedModel(isSelected ? null : model.id)}
       >
@@ -469,7 +516,9 @@ export function VisionLibrary() {
                 <Cpu className="h-4 w-4 text-primary" />
                 <span className="font-medium">Resolution</span>
               </div>
-              <p className="text-muted-foreground pl-6">{model.maxResolution}</p>
+              <p className="text-muted-foreground pl-6">
+                {model.maxResolution}
+              </p>
             </div>
             <div className="space-y-2">
               <div className="flex items-center gap-2">
@@ -493,7 +542,9 @@ export function VisionLibrary() {
             )}
           </div>
 
-          <div className={`text-xs font-medium p-3 rounded-lg ${model.bgColor} ${model.borderColor} border`}>
+          <div
+            className={`text-xs font-medium p-3 rounded-lg ${model.bgColor} ${model.borderColor} border`}
+          >
             <Lightbulb className="h-4 w-4 inline mr-2" />
             {model.recommended}
           </div>
@@ -509,10 +560,15 @@ export function VisionLibrary() {
                 <div className="space-y-4">
                   {model.capabilities.map((capability) => (
                     <div key={capability.category} className="space-y-2">
-                      <h5 className="font-medium text-sm">{capability.category}</h5>
+                      <h5 className="font-medium text-sm">
+                        {capability.category}
+                      </h5>
                       <div className="grid grid-cols-1 gap-1 pl-4">
                         {capability.items.map((item) => (
-                          <div key={item} className="flex items-center gap-2 text-sm">
+                          <div
+                            key={item}
+                            className="flex items-center gap-2 text-sm"
+                          >
                             <CheckCircle className="h-3 w-3 text-green-500 flex-shrink-0" />
                             <span>{item}</span>
                           </div>
@@ -532,10 +588,16 @@ export function VisionLibrary() {
                 <div className="space-y-4">
                   {model.useCases.map((useCase) => (
                     <div key={useCase.category} className="space-y-2">
-                      <h5 className="font-medium text-sm">{useCase.category}</h5>
+                      <h5 className="font-medium text-sm">
+                        {useCase.category}
+                      </h5>
                       <div className="flex flex-wrap gap-2">
                         {useCase.examples.map((example) => (
-                          <Badge key={example} variant="outline" className="text-xs">
+                          <Badge
+                            key={example}
+                            variant="outline"
+                            className="text-xs"
+                          >
                             {example}
                           </Badge>
                         ))}
@@ -554,7 +616,10 @@ export function VisionLibrary() {
                   </h4>
                   <ul className="space-y-2">
                     {model.strengths.map((strength) => (
-                      <li key={strength} className="flex items-start gap-2 text-sm">
+                      <li
+                        key={strength}
+                        className="flex items-start gap-2 text-sm"
+                      >
                         <Star className="h-3 w-3 text-green-500 mt-0.5 flex-shrink-0" />
                         {strength}
                       </li>
@@ -568,7 +633,10 @@ export function VisionLibrary() {
                   </h4>
                   <ul className="space-y-2">
                     {model.limitations.map((limitation) => (
-                      <li key={limitation} className="flex items-start gap-2 text-sm">
+                      <li
+                        key={limitation}
+                        className="flex items-start gap-2 text-sm"
+                      >
                         <XCircle className="h-3 w-3 text-orange-500 mt-0.5 flex-shrink-0" />
                         {limitation}
                       </li>
@@ -586,7 +654,9 @@ export function VisionLibrary() {
                 <div className="grid grid-cols-2 md:grid-cols-3 gap-4 text-sm">
                   {Object.entries(model.technicalSpecs).map(([key, value]) => (
                     <div key={key} className="space-y-1">
-                      <p className="font-medium capitalize">{key.replace(/([A-Z])/g, ' $1').trim()}</p>
+                      <p className="font-medium capitalize">
+                        {key.replace(/([A-Z])/g, " $1").trim()}
+                      </p>
                       <p className="text-muted-foreground">{value}</p>
                     </div>
                   ))}
@@ -602,7 +672,9 @@ export function VisionLibrary() {
                 <div className="grid grid-cols-2 md:grid-cols-4 gap-4 text-sm">
                   {Object.entries(model.pricing).map(([key, value]) => (
                     <div key={key} className="space-y-1">
-                      <p className="font-medium capitalize">{key.replace(/([A-Z])/g, ' $1').trim()}</p>
+                      <p className="font-medium capitalize">
+                        {key.replace(/([A-Z])/g, " $1").trim()}
+                      </p>
                       <p className="text-muted-foreground">{value}</p>
                     </div>
                   ))}
@@ -620,7 +692,8 @@ export function VisionLibrary() {
       <div className="text-center mb-8">
         <h2 className="text-3xl font-bold mb-2">Vision Library</h2>
         <p className="text-lg text-muted-foreground">
-          Comprehensive guide to advanced vision models with detailed capabilities and use cases
+          Comprehensive guide to advanced vision models with detailed
+          capabilities and use cases
         </p>
       </div>
 
@@ -645,7 +718,10 @@ export function VisionLibrary() {
             {visionCapabilities.map((capability) => {
               const Icon = capability.icon;
               return (
-                <Card key={capability.category} className="hover:shadow-lg transition-shadow">
+                <Card
+                  key={capability.category}
+                  className="hover:shadow-lg transition-shadow"
+                >
                   <CardHeader>
                     <CardTitle className="flex items-center gap-2">
                       <Icon className="h-5 w-5 text-primary" />
@@ -660,7 +736,11 @@ export function VisionLibrary() {
                       <h4 className="font-medium text-sm">Examples:</h4>
                       <div className="flex flex-wrap gap-2">
                         {capability.examples.map((example) => (
-                          <Badge key={example} variant="secondary" className="text-xs">
+                          <Badge
+                            key={example}
+                            variant="secondary"
+                            className="text-xs"
+                          >
                             {example}
                           </Badge>
                         ))}
@@ -676,7 +756,10 @@ export function VisionLibrary() {
         <TabsContent value="use-cases" className="space-y-6">
           <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
             {useCaseTemplates.map((template) => (
-              <Card key={template.title} className="hover:shadow-lg transition-shadow">
+              <Card
+                key={template.title}
+                className="hover:shadow-lg transition-shadow"
+              >
                 <CardHeader>
                   <CardTitle className="flex items-center gap-2">
                     <Lightbulb className="h-5 w-5 text-primary" />
@@ -699,7 +782,11 @@ export function VisionLibrary() {
                     <h4 className="font-medium text-sm">Industries:</h4>
                     <div className="flex flex-wrap gap-2">
                       {template.industries.map((industry) => (
-                        <Badge key={industry} variant="outline" className="text-xs">
+                        <Badge
+                          key={industry}
+                          variant="outline"
+                          className="text-xs"
+                        >
                           {industry}
                         </Badge>
                       ))}
@@ -710,7 +797,10 @@ export function VisionLibrary() {
                     <h4 className="font-medium text-sm">Benefits:</h4>
                     <ul className="space-y-1">
                       {template.benefits.map((benefit) => (
-                        <li key={benefit} className="flex items-center gap-2 text-sm">
+                        <li
+                          key={benefit}
+                          className="flex items-center gap-2 text-sm"
+                        >
                           <CheckCircle className="h-3 w-3 text-green-500" />
                           {benefit}
                         </li>
@@ -733,9 +823,14 @@ export function VisionLibrary() {
                 <table className="w-full border-collapse border border-border">
                   <thead>
                     <tr className="bg-muted">
-                      <th className="border border-border p-3 text-left">Feature</th>
+                      <th className="border border-border p-3 text-left">
+                        Feature
+                      </th>
                       {visionModels.map((model) => (
-                        <th key={model.id} className="border border-border p-3 text-center">
+                        <th
+                          key={model.id}
+                          className="border border-border p-3 text-center"
+                        >
                           {model.shortName}
                         </th>
                       ))}
@@ -743,33 +838,53 @@ export function VisionLibrary() {
                   </thead>
                   <tbody>
                     <tr>
-                      <td className="border border-border p-3 font-medium">Context Window</td>
+                      <td className="border border-border p-3 font-medium">
+                        Context Window
+                      </td>
                       {visionModels.map((model) => (
-                        <td key={model.id} className="border border-border p-3 text-center">
+                        <td
+                          key={model.id}
+                          className="border border-border p-3 text-center"
+                        >
                           {model.contextWindow}
                         </td>
                       ))}
                     </tr>
                     <tr>
-                      <td className="border border-border p-3 font-medium">Max Images</td>
+                      <td className="border border-border p-3 font-medium">
+                        Max Images
+                      </td>
                       {visionModels.map((model) => (
-                        <td key={model.id} className="border border-border p-3 text-center">
+                        <td
+                          key={model.id}
+                          className="border border-border p-3 text-center"
+                        >
                           {model.maxImages}
                         </td>
                       ))}
                     </tr>
                     <tr>
-                      <td className="border border-border p-3 font-medium">Max Image Size</td>
+                      <td className="border border-border p-3 font-medium">
+                        Max Image Size
+                      </td>
                       {visionModels.map((model) => (
-                        <td key={model.id} className="border border-border p-3 text-center">
+                        <td
+                          key={model.id}
+                          className="border border-border p-3 text-center"
+                        >
                           {model.maxImageSize}
                         </td>
                       ))}
                     </tr>
                     <tr>
-                      <td className="border border-border p-3 font-medium">Best For</td>
+                      <td className="border border-border p-3 font-medium">
+                        Best For
+                      </td>
                       {visionModels.map((model) => (
-                        <td key={model.id} className="border border-border p-3 text-center text-sm">
+                        <td
+                          key={model.id}
+                          className="border border-border p-3 text-center text-sm"
+                        >
                           {model.recommended}
                         </td>
                       ))}

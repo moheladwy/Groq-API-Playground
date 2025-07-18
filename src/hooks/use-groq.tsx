@@ -141,7 +141,7 @@ export function GroqProvider({ children }: { children: ReactNode }) {
 
       let errorMessage = "Failed to validate API key. Please try again.";
 
-      const errorMessage = getErrorMessage(err);
+      errorMessage = getErrorMessage(err);
       setError(errorMessage);
 
       setRetryCount((prev) => prev + 1);

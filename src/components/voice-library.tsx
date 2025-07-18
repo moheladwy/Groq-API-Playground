@@ -1,21 +1,14 @@
 import { useState } from "react";
 import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
 import { Badge } from "@/components/ui/badge";
-import { Button } from "@/components/ui/button";
+
 import { Tabs, TabsContent, TabsList, TabsTrigger } from "@/components/ui/tabs";
 import {
-  AudioWaveform,
-  Mic,
   Languages,
   Zap,
   Target,
   DollarSign,
-  Clock,
-  Users,
   Globe,
-  Play,
-  Volume2,
-  Headphones,
   Speaker,
   Info,
   Star,
@@ -26,15 +19,26 @@ const speechToTextModels = [
   {
     id: "whisper-large-v3-turbo",
     name: "Whisper Large V3 Turbo",
-    description: "A fine-tuned version of a pruned Whisper Large V3 designed for fast, multilingual transcription tasks.",
+    description:
+      "A fine-tuned version of a pruned Whisper Large V3 designed for fast, multilingual transcription tasks.",
     type: "Speech-to-Text",
     languages: "Multilingual (99+ languages)",
     costPerHour: "$0.04",
     realTimeSpeedFactor: "216x",
     wordErrorRate: "12%",
     contextWindow: "30 seconds",
-    features: ["Real-time transcription", "Multilingual support", "Fast inference", "Cost-effective"],
-    useCases: ["Live transcription", "Meeting notes", "Voice commands", "Content creation"],
+    features: [
+      "Real-time transcription",
+      "Multilingual support",
+      "Fast inference",
+      "Cost-effective",
+    ],
+    useCases: [
+      "Live transcription",
+      "Meeting notes",
+      "Voice commands",
+      "Content creation",
+    ],
     strengths: ["Speed", "Cost efficiency", "Multi-language support"],
     limitations: ["Slightly higher error rate", "Limited context window"],
     recommended: "Best price for performance with multilingual support",
@@ -42,22 +46,43 @@ const speechToTextModels = [
     status: "Production",
     accuracy: "High",
     latency: "Ultra-low",
-    supportedFormats: ["flac", "mp3", "mp4", "mpeg", "mpga", "m4a", "ogg", "wav", "webm"],
+    supportedFormats: [
+      "flac",
+      "mp3",
+      "mp4",
+      "mpeg",
+      "mpga",
+      "m4a",
+      "ogg",
+      "wav",
+      "webm",
+    ],
     maxFileSize: "25MB",
     sampleRate: "16kHz recommended",
   },
   {
     id: "distil-whisper-large-v3-en",
     name: "Distil-Whisper English",
-    description: "A distilled, or compressed, version of OpenAI's Whisper model, designed to provide faster, lower cost English speech recognition.",
+    description:
+      "A distilled, or compressed, version of OpenAI's Whisper model, designed to provide faster, lower cost English speech recognition.",
     type: "Speech-to-Text",
     languages: "English only",
     costPerHour: "$0.02",
     realTimeSpeedFactor: "250x",
     wordErrorRate: "13%",
     contextWindow: "30 seconds",
-    features: ["Ultra-fast inference", "English-optimized", "Lowest cost", "High accuracy"],
-    useCases: ["English podcasts", "Customer service", "Voice assistants", "Dictation"],
+    features: [
+      "Ultra-fast inference",
+      "English-optimized",
+      "Lowest cost",
+      "High accuracy",
+    ],
+    useCases: [
+      "English podcasts",
+      "Customer service",
+      "Voice assistants",
+      "Dictation",
+    ],
     strengths: ["Fastest speed", "Lowest cost", "English optimization"],
     limitations: ["English only", "Slightly higher error rate"],
     recommended: "Fastest and cheapest for English-only applications",
@@ -65,30 +90,65 @@ const speechToTextModels = [
     status: "Production",
     accuracy: "High",
     latency: "Ultra-low",
-    supportedFormats: ["flac", "mp3", "mp4", "mpeg", "mpga", "m4a", "ogg", "wav", "webm"],
+    supportedFormats: [
+      "flac",
+      "mp3",
+      "mp4",
+      "mpeg",
+      "mpga",
+      "m4a",
+      "ogg",
+      "wav",
+      "webm",
+    ],
     maxFileSize: "25MB",
     sampleRate: "16kHz recommended",
   },
   {
     id: "whisper-large-v3",
     name: "Whisper Large V3",
-    description: "Provides state-of-the-art performance with high accuracy for multilingual transcription and translation tasks.",
+    description:
+      "Provides state-of-the-art performance with high accuracy for multilingual transcription and translation tasks.",
     type: "Speech-to-Text",
     languages: "Multilingual (99+ languages)",
     costPerHour: "$0.111",
     realTimeSpeedFactor: "189x",
     wordErrorRate: "10.3%",
     contextWindow: "30 seconds",
-    features: ["Highest accuracy", "Translation support", "99+ languages", "Professional grade"],
-    useCases: ["Professional transcription", "Medical dictation", "Legal documentation", "Academic research"],
-    strengths: ["Highest accuracy", "Translation capabilities", "Professional quality"],
+    features: [
+      "Highest accuracy",
+      "Translation support",
+      "99+ languages",
+      "Professional grade",
+    ],
+    useCases: [
+      "Professional transcription",
+      "Medical dictation",
+      "Legal documentation",
+      "Academic research",
+    ],
+    strengths: [
+      "Highest accuracy",
+      "Translation capabilities",
+      "Professional quality",
+    ],
     limitations: ["Higher cost", "Slower than turbo variants"],
     recommended: "Most accurate for error-sensitive applications",
     icon: Target,
     status: "Production",
     accuracy: "Highest",
     latency: "Low",
-    supportedFormats: ["flac", "mp3", "mp4", "mpeg", "mpga", "m4a", "ogg", "wav", "webm"],
+    supportedFormats: [
+      "flac",
+      "mp3",
+      "mp4",
+      "mpeg",
+      "mpga",
+      "m4a",
+      "ogg",
+      "wav",
+      "webm",
+    ],
     maxFileSize: "25MB",
     sampleRate: "16kHz recommended",
   },
@@ -99,14 +159,29 @@ const textToSpeechModels = [
   {
     id: "playai-tts-arabic",
     name: "PlayAI TTS Arabic",
-    description: "Advanced Arabic text-to-speech model with natural-sounding voices and proper Arabic pronunciation.",
+    description:
+      "Advanced Arabic text-to-speech model with natural-sounding voices and proper Arabic pronunciation.",
     type: "Text-to-Speech",
     languages: "Arabic",
     costPerRequest: "$0.002 per 1K characters",
     quality: "High fidelity",
-    features: ["Natural Arabic pronunciation", "Emotion support", "SSML support", "Multiple voices"],
-    useCases: ["Arabic content creation", "E-learning", "Accessibility", "Voice assistants"],
-    strengths: ["Native Arabic support", "Natural pronunciation", "Cultural context"],
+    features: [
+      "Natural Arabic pronunciation",
+      "Emotion support",
+      "SSML support",
+      "Multiple voices",
+    ],
+    useCases: [
+      "Arabic content creation",
+      "E-learning",
+      "Accessibility",
+      "Voice assistants",
+    ],
+    strengths: [
+      "Native Arabic support",
+      "Natural pronunciation",
+      "Cultural context",
+    ],
     limitations: ["Arabic only", "Limited to Arabic script"],
     recommended: "Best for Arabic content with authentic pronunciation",
     icon: Languages,
@@ -119,9 +194,14 @@ const textToSpeechModels = [
         name: "Nasser",
         gender: "Male",
         age: "Adult",
-        description: "Professional male Arabic voice with clear articulation and warm tone.",
+        description:
+          "Professional male Arabic voice with clear articulation and warm tone.",
         personality: "Professional, warm, trustworthy",
-        useCases: ["News reading", "Business presentations", "Educational content"],
+        useCases: [
+          "News reading",
+          "Business presentations",
+          "Educational content",
+        ],
         accent: "Modern Standard Arabic",
         sample: "مرحباً، أنا ناصر. أتحدث بوضوح وطلاقة باللغة العربية.",
       },
@@ -130,9 +210,14 @@ const textToSpeechModels = [
         name: "Khalid",
         gender: "Male",
         age: "Adult",
-        description: "Confident male Arabic voice with authoritative tone, perfect for formal content.",
+        description:
+          "Confident male Arabic voice with authoritative tone, perfect for formal content.",
         personality: "Confident, authoritative, clear",
-        useCases: ["Corporate training", "Announcements", "Formal presentations"],
+        useCases: [
+          "Corporate training",
+          "Announcements",
+          "Formal presentations",
+        ],
         accent: "Modern Standard Arabic",
         sample: "السلام عليكم، أنا خالد. صوت واضح ومناسب للمحتوى الرسمي.",
       },
@@ -141,9 +226,14 @@ const textToSpeechModels = [
         name: "Amira",
         gender: "Female",
         age: "Adult",
-        description: "Elegant female Arabic voice with gentle tone, ideal for storytelling and education.",
+        description:
+          "Elegant female Arabic voice with gentle tone, ideal for storytelling and education.",
         personality: "Gentle, elegant, nurturing",
-        useCases: ["Children's content", "Storytelling", "Educational materials"],
+        useCases: [
+          "Children's content",
+          "Storytelling",
+          "Educational materials",
+        ],
         accent: "Modern Standard Arabic",
         sample: "مرحباً، أنا أميرة. صوت لطيف ومناسب للقصص والتعليم.",
       },
@@ -152,7 +242,8 @@ const textToSpeechModels = [
         name: "Ahmad",
         gender: "Male",
         age: "Adult",
-        description: "Versatile male Arabic voice suitable for various content types.",
+        description:
+          "Versatile male Arabic voice suitable for various content types.",
         personality: "Versatile, friendly, adaptable",
         useCases: ["General content", "Podcasts", "Voice assistants"],
         accent: "Modern Standard Arabic",
@@ -163,13 +254,24 @@ const textToSpeechModels = [
   {
     id: "playai-tts",
     name: "PlayAI TTS English",
-    description: "High-quality English text-to-speech model with diverse voices and natural intonation.",
+    description:
+      "High-quality English text-to-speech model with diverse voices and natural intonation.",
     type: "Text-to-Speech",
     languages: "English",
     costPerRequest: "$0.002 per 1K characters",
     quality: "High fidelity",
-    features: ["Natural English voices", "Emotion control", "SSML support", "Wide voice selection"],
-    useCases: ["Content creation", "Audiobooks", "Voice-overs", "Accessibility"],
+    features: [
+      "Natural English voices",
+      "Emotion control",
+      "SSML support",
+      "Wide voice selection",
+    ],
+    useCases: [
+      "Content creation",
+      "Audiobooks",
+      "Voice-overs",
+      "Accessibility",
+    ],
     strengths: ["Voice variety", "Natural intonation", "Emotion support"],
     limitations: ["English only", "Higher cost for large volumes"],
     recommended: "Best for English content with diverse voice options",
@@ -183,66 +285,86 @@ const textToSpeechModels = [
         name: "Arista",
         gender: "Female",
         age: "Adult",
-        description: "Professional female voice with clear articulation and warm personality.",
+        description:
+          "Professional female voice with clear articulation and warm personality.",
         personality: "Professional, warm, confident",
-        useCases: ["Business presentations", "Training materials", "Customer service"],
+        useCases: [
+          "Business presentations",
+          "Training materials",
+          "Customer service",
+        ],
         accent: "American English",
-        sample: "Hello, I'm Arista. I speak with clarity and warmth for professional content.",
+        sample:
+          "Hello, I'm Arista. I speak with clarity and warmth for professional content.",
       },
       {
         id: "Atlas-PlayAI",
         name: "Atlas",
         gender: "Male",
         age: "Adult",
-        description: "Strong male voice with authoritative tone, perfect for narration.",
+        description:
+          "Strong male voice with authoritative tone, perfect for narration.",
         personality: "Strong, authoritative, reliable",
         useCases: ["Documentaries", "Audiobooks", "Corporate content"],
         accent: "American English",
-        sample: "Greetings, I'm Atlas. My voice carries strength and authority for impactful narration.",
+        sample:
+          "Greetings, I'm Atlas. My voice carries strength and authority for impactful narration.",
       },
       {
         id: "Basil-PlayAI",
         name: "Basil",
         gender: "Male",
         age: "Adult",
-        description: "Sophisticated male voice with British accent, ideal for educational content.",
+        description:
+          "Sophisticated male voice with British accent, ideal for educational content.",
         personality: "Sophisticated, intellectual, refined",
-        useCases: ["Educational content", "Lectures", "Historical documentaries"],
+        useCases: [
+          "Educational content",
+          "Lectures",
+          "Historical documentaries",
+        ],
         accent: "British English",
-        sample: "Good day, I'm Basil. I bring sophistication and intellect to educational material.",
+        sample:
+          "Good day, I'm Basil. I bring sophistication and intellect to educational material.",
       },
       {
         id: "Briggs-PlayAI",
         name: "Briggs",
         gender: "Male",
         age: "Adult",
-        description: "Friendly male voice with approachable tone, great for casual content.",
+        description:
+          "Friendly male voice with approachable tone, great for casual content.",
         personality: "Friendly, approachable, casual",
         useCases: ["Podcasts", "Casual content", "Social media"],
         accent: "American English",
-        sample: "Hey there, I'm Briggs. I keep things friendly and approachable for everyday content.",
+        sample:
+          "Hey there, I'm Briggs. I keep things friendly and approachable for everyday content.",
       },
       {
         id: "Calum-PlayAI",
         name: "Calum",
         gender: "Male",
         age: "Adult",
-        description: "Versatile male voice suitable for various content types and moods.",
+        description:
+          "Versatile male voice suitable for various content types and moods.",
         personality: "Versatile, adaptable, neutral",
         useCases: ["General content", "Voice assistants", "Announcements"],
         accent: "American English",
-        sample: "Hello, I'm Calum. I adapt to different content needs with versatility.",
+        sample:
+          "Hello, I'm Calum. I adapt to different content needs with versatility.",
       },
       {
         id: "Celeste-PlayAI",
         name: "Celeste",
         gender: "Female",
         age: "Adult",
-        description: "Elegant female voice with soothing tone, perfect for relaxation content.",
+        description:
+          "Elegant female voice with soothing tone, perfect for relaxation content.",
         personality: "Elegant, soothing, calm",
         useCases: ["Meditation", "Relaxation", "Wellness content"],
         accent: "American English",
-        sample: "Hello, I'm Celeste. My voice brings calm and elegance to wellness content.",
+        sample:
+          "Hello, I'm Celeste. My voice brings calm and elegance to wellness content.",
       },
       // Add more voices with detailed information...
     ],
@@ -251,17 +373,72 @@ const textToSpeechModels = [
 
 const languageSupport = [
   { code: "ar", name: "Arabic", models: ["playai-tts-arabic"], voices: 4 },
-  { code: "en", name: "English", models: ["playai-tts", "distil-whisper-large-v3-en"], voices: 15 },
-  { code: "es", name: "Spanish", models: ["whisper-large-v3-turbo", "whisper-large-v3"], voices: 0 },
-  { code: "fr", name: "French", models: ["whisper-large-v3-turbo", "whisper-large-v3"], voices: 0 },
-  { code: "de", name: "German", models: ["whisper-large-v3-turbo", "whisper-large-v3"], voices: 0 },
-  { code: "it", name: "Italian", models: ["whisper-large-v3-turbo", "whisper-large-v3"], voices: 0 },
-  { code: "pt", name: "Portuguese", models: ["whisper-large-v3-turbo", "whisper-large-v3"], voices: 0 },
-  { code: "ru", name: "Russian", models: ["whisper-large-v3-turbo", "whisper-large-v3"], voices: 0 },
-  { code: "ja", name: "Japanese", models: ["whisper-large-v3-turbo", "whisper-large-v3"], voices: 0 },
-  { code: "ko", name: "Korean", models: ["whisper-large-v3-turbo", "whisper-large-v3"], voices: 0 },
-  { code: "zh", name: "Chinese", models: ["whisper-large-v3-turbo", "whisper-large-v3"], voices: 0 },
-  { code: "hi", name: "Hindi", models: ["whisper-large-v3-turbo", "whisper-large-v3"], voices: 0 },
+  {
+    code: "en",
+    name: "English",
+    models: ["playai-tts", "distil-whisper-large-v3-en"],
+    voices: 15,
+  },
+  {
+    code: "es",
+    name: "Spanish",
+    models: ["whisper-large-v3-turbo", "whisper-large-v3"],
+    voices: 0,
+  },
+  {
+    code: "fr",
+    name: "French",
+    models: ["whisper-large-v3-turbo", "whisper-large-v3"],
+    voices: 0,
+  },
+  {
+    code: "de",
+    name: "German",
+    models: ["whisper-large-v3-turbo", "whisper-large-v3"],
+    voices: 0,
+  },
+  {
+    code: "it",
+    name: "Italian",
+    models: ["whisper-large-v3-turbo", "whisper-large-v3"],
+    voices: 0,
+  },
+  {
+    code: "pt",
+    name: "Portuguese",
+    models: ["whisper-large-v3-turbo", "whisper-large-v3"],
+    voices: 0,
+  },
+  {
+    code: "ru",
+    name: "Russian",
+    models: ["whisper-large-v3-turbo", "whisper-large-v3"],
+    voices: 0,
+  },
+  {
+    code: "ja",
+    name: "Japanese",
+    models: ["whisper-large-v3-turbo", "whisper-large-v3"],
+    voices: 0,
+  },
+  {
+    code: "ko",
+    name: "Korean",
+    models: ["whisper-large-v3-turbo", "whisper-large-v3"],
+    voices: 0,
+  },
+  {
+    code: "zh",
+    name: "Chinese",
+    models: ["whisper-large-v3-turbo", "whisper-large-v3"],
+    voices: 0,
+  },
+  {
+    code: "hi",
+    name: "Hindi",
+    models: ["whisper-large-v3-turbo", "whisper-large-v3"],
+    voices: 0,
+  },
 ];
 
 export function VoiceLibrary() {
@@ -277,7 +454,7 @@ export function VoiceLibrary() {
     return (
       <Card
         className={`cursor-pointer transition-all duration-200 ${
-          isSelected ? 'ring-2 ring-primary shadow-lg' : 'hover:shadow-md'
+          isSelected ? "ring-2 ring-primary shadow-lg" : "hover:shadow-md"
         }`}
         onClick={() => setSelectedModel(isSelected ? null : model.id)}
       >
@@ -304,11 +481,15 @@ export function VoiceLibrary() {
             </div>
             <div>
               <p className="font-medium text-primary">Cost</p>
-              <p className="text-muted-foreground">{model.costPerHour || model.costPerRequest}</p>
+              <p className="text-muted-foreground">
+                {model.costPerHour || model.costPerRequest}
+              </p>
             </div>
             <div>
               <p className="font-medium text-primary">Quality</p>
-              <p className="text-muted-foreground">{model.accuracy || model.quality}</p>
+              <p className="text-muted-foreground">
+                {model.accuracy || model.quality}
+              </p>
             </div>
           </div>
 
@@ -364,17 +545,23 @@ export function VoiceLibrary() {
 
               {model.voices && (
                 <div>
-                  <p className="font-medium text-primary mb-2">Available Voices ({model.voices.length})</p>
+                  <p className="font-medium text-primary mb-2">
+                    Available Voices ({model.voices.length})
+                  </p>
                   <div className="grid grid-cols-1 md:grid-cols-2 gap-2">
                     {model.voices.map((voice: any) => (
                       <div
                         key={voice.id}
                         className={`p-3 rounded-lg border cursor-pointer transition-all ${
                           selectedVoice === voice.id
-                            ? 'border-primary bg-primary/5'
-                            : 'border-border hover:border-primary/50'
+                            ? "border-primary bg-primary/5"
+                            : "border-border hover:border-primary/50"
                         }`}
-                        onClick={() => setSelectedVoice(selectedVoice === voice.id ? null : voice.id)}
+                        onClick={() =>
+                          setSelectedVoice(
+                            selectedVoice === voice.id ? null : voice.id,
+                          )
+                        }
                       >
                         <div className="flex items-center justify-between mb-1">
                           <h4 className="font-medium">{voice.name}</h4>
@@ -382,26 +569,38 @@ export function VoiceLibrary() {
                             {voice.gender}
                           </Badge>
                         </div>
-                        <p className="text-xs text-muted-foreground mb-2">{voice.description}</p>
+                        <p className="text-xs text-muted-foreground mb-2">
+                          {voice.description}
+                        </p>
                         <div className="flex items-center gap-2 text-xs">
-                          <span className="text-primary font-medium">Accent:</span>
+                          <span className="text-primary font-medium">
+                            Accent:
+                          </span>
                           <span>{voice.accent}</span>
                         </div>
                         {selectedVoice === voice.id && (
                           <div className="mt-3 space-y-2 animate-in fade-in-0">
                             <div className="text-xs">
-                              <span className="text-primary font-medium">Personality:</span>
+                              <span className="text-primary font-medium">
+                                Personality:
+                              </span>
                               <span className="ml-1">{voice.personality}</span>
                             </div>
                             <div className="text-xs">
-                              <span className="text-primary font-medium">Sample:</span>
+                              <span className="text-primary font-medium">
+                                Sample:
+                              </span>
                               <p className="mt-1 p-2 bg-muted rounded text-sm italic">
                                 "{voice.sample}"
                               </p>
                             </div>
                             <div className="flex flex-wrap gap-1">
                               {voice.useCases.map((useCase: string) => (
-                                <Badge key={useCase} variant="secondary" className="text-xs">
+                                <Badge
+                                  key={useCase}
+                                  variant="secondary"
+                                  className="text-xs"
+                                >
                                   {useCase}
                                 </Badge>
                               ))}
@@ -425,7 +624,8 @@ export function VoiceLibrary() {
       <div className="text-center mb-8">
         <h2 className="text-3xl font-bold mb-2">Voice Library</h2>
         <p className="text-lg text-muted-foreground">
-          Comprehensive guide to all speech-to-text and text-to-speech models with detailed voice information
+          Comprehensive guide to all speech-to-text and text-to-speech models
+          with detailed voice information
         </p>
       </div>
 
