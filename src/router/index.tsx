@@ -1,4 +1,3 @@
-import React from "react";
 import { createBrowserRouter, type RouteObject } from "react-router-dom";
 import { TextToSpeech } from "@/components/text-to-speech";
 import { SpeechToText } from "@/components/speech-to-text";

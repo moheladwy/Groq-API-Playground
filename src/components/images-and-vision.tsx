@@ -875,8 +875,13 @@ Status: ${error.statusCode || "N/A"}`;
                         className,
                         children,
                         ...props
+                      }: {
+                        node?: any;
+                        inline?: boolean;
+                        className?: string;
+                        children?: React.ReactNode;
+                        [key: string]: any;
                       }) => {
-                        const match = /language-(\w+)/.exec(className || "");
                         return !inline ? (
                           <code
                             className={cn(
