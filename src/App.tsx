@@ -1,5 +1,7 @@
 import { Outlet } from "react-router-dom";
 import { ThemeProvider } from "@/components/theme-provider";
+import { GroqProvider, useGroq } from "@/hooks/use-groq";
+import { LoadingScreen } from "@/components/loading-screen";
 import { AppSidebar } from "@/components/app-sidebar";
 import {
   SidebarInset,
@@ -8,6 +10,12 @@ import {
 } from "@/components/ui/sidebar";
 
 function AppContent() {
+  const { isLoading } = useGroq();
+
+  if (isLoading) {
+    return <LoadingScreen />;
+  }
+
   return (
     <SidebarProvider>
       <AppSidebar />
@@ -32,9 +40,11 @@ function AppContent() {
 
 function App() {
   return (
-    <ThemeProvider defaultTheme="system" storageKey="adawyat-theme">
-      <AppContent />
-    </ThemeProvider>
+    <GroqProvider>
+      <ThemeProvider defaultTheme="system" storageKey="adawyat-theme">
+        <AppContent />
+      </ThemeProvider>
+    </GroqProvider>
   );
 }
 

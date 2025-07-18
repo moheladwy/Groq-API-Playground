@@ -117,3 +117,161 @@
     @apply bg-background text-foreground;
   }
 }
+
+/* Syntax highlighting for code blocks */
+.hljs {
+  background: hsl(var(--muted)) !important;
+  color: hsl(var(--foreground)) !important;
+  padding: 1rem !important;
+  border-radius: 0.5rem !important;
+  font-size: 0.875rem !important;
+  line-height: 1.5 !important;
+  overflow-x: auto !important;
+}
+
+.hljs-comment,
+.hljs-quote {
+  color: hsl(var(--muted-foreground)) !important;
+  font-style: italic !important;
+}
+
+.hljs-keyword,
+.hljs-selector-tag,
+.hljs-subst {
+  color: hsl(var(--primary)) !important;
+  font-weight: 600 !important;
+}
+
+.hljs-number,
+.hljs-literal,
+.hljs-variable,
+.hljs-template-variable,
+.hljs-tag .hljs-attr {
+  color: hsl(var(--chart-1)) !important;
+}
+
+.hljs-string,
+.hljs-doctag {
+  color: hsl(var(--chart-2)) !important;
+}
+
+.hljs-title,
+.hljs-section,
+.hljs-selector-id {
+  color: hsl(var(--chart-3)) !important;
+  font-weight: 600 !important;
+}
+
+.hljs-type,
+.hljs-class .hljs-title,
+.hljs-meta,
+.hljs-name {
+  color: hsl(var(--chart-4)) !important;
+}
+
+.hljs-attribute,
+.hljs-symbol,
+.hljs-bullet,
+.hljs-built_in,
+.hljs-builtin-name,
+.hljs-link {
+  color: hsl(var(--chart-5)) !important;
+}
+
+.hljs-deletion {
+  color: hsl(var(--destructive)) !important;
+}
+
+.hljs-addition {
+  color: hsl(var(--chart-2)) !important;
+}
+
+/* Custom markdown styles */
+.prose {
+  max-width: none !important;
+}
+
+.prose code {
+  background: hsl(var(--muted)) !important;
+  color: hsl(var(--foreground)) !important;
+  padding: 0.25rem 0.5rem !important;
+  border-radius: 0.375rem !important;
+  font-size: 0.875rem !important;
+  font-weight: 500 !important;
+}
+
+.prose pre {
+  background: hsl(var(--muted)) !important;
+  border: 1px solid hsl(var(--border)) !important;
+  border-radius: 0.5rem !important;
+  margin: 1rem 0 !important;
+}
+
+.prose pre code {
+  background: transparent !important;
+  padding: 0 !important;
+  border-radius: 0 !important;
+  font-weight: 400 !important;
+}
+
+.prose blockquote {
+  border-left: 4px solid hsl(var(--primary)) !important;
+  background: hsl(var(--muted) / 0.5) !important;
+  padding: 1rem !important;
+  margin: 1rem 0 !important;
+  border-radius: 0.5rem !important;
+}
+
+.prose h1,
+.prose h2,
+.prose h3,
+.prose h4,
+.prose h5,
+.prose h6 {
+  color: hsl(var(--foreground)) !important;
+  font-weight: 600 !important;
+  margin-top: 1.5rem !important;
+  margin-bottom: 0.5rem !important;
+}
+
+.prose h1 {
+  font-size: 1.875rem !important;
+}
+
+.prose h2 {
+  font-size: 1.5rem !important;
+}
+
+.prose h3 {
+  font-size: 1.25rem !important;
+}
+
+.prose ul,
+.prose ol {
+  margin: 1rem 0 !important;
+  padding-left: 1.5rem !important;
+}
+
+.prose li {
+  margin: 0.5rem 0 !important;
+}
+
+.prose strong {
+  color: hsl(var(--foreground)) !important;
+  font-weight: 600 !important;
+}
+
+.prose em {
+  color: hsl(var(--muted-foreground)) !important;
+  font-style: italic !important;
+}
+
+.prose a {
+  color: hsl(var(--primary)) !important;
+  text-decoration: underline !important;
+  text-underline-offset: 2px !important;
+}
+
+.prose a:hover {
+  text-decoration: none !important;
+}

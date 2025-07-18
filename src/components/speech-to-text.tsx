@@ -24,14 +24,8 @@ import {
   Target,
   DollarSign,
 } from "lucide-react";
-import Groq from "groq-sdk";
+import { useGroq } from "@/hooks/use-groq";
 import { Textarea } from "@/components/ui/textarea";
-
-// Initialize Groq client
-const groq = new Groq({
-  apiKey: import.meta.env.VITE_GROQ_API_KEY,
-  dangerouslyAllowBrowser: true,
-});
 
 // Model specifications
 const models = [
@@ -118,6 +112,7 @@ const supportedFormats = [
 const maxFileSize = 25 * 1024 * 1024; // 25MB in bytes
 
 export function SpeechToText() {
+  const { groq, isLoading, hasApiKey } = useGroq();
   const [selectedModel, setSelectedModel] = useState(models[0].id);
   const [selectedLanguage, setSelectedLanguage] = useState<string>("auto");
   const [file, setFile] = useState<File | null>(null);
@@ -298,6 +293,11 @@ export function SpeechToText() {
   };
 
   const transcribeAudio = async () => {
+    if (!groq) {
+      setError("Groq client not initialized. Please check your API key.");
+      return;
+    }
+
     if (!file && !recordedBlob) {
       setError("Please select a file or record audio first.");
       return;
@@ -483,7 +483,12 @@ export function SpeechToText() {
               {/* Transcribe Button */}
               <Button
                 onClick={transcribeAudio}
-                disabled={isTranscribing || (!file && !recordedBlob)}
+                disabled={
+                  isTranscribing ||
+                  (!file && !recordedBlob) ||
+                  isLoading ||
+                  !hasApiKey
+                }
                 className="w-full"
                 size="lg"
               >

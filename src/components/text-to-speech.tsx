@@ -11,18 +11,8 @@ import {
   SelectValue,
 } from "@/components/ui/select";
 import { Play, Download, Loader2, Languages } from "lucide-react";
-import Groq from "groq-sdk";
-import type {
-  Language,
-  VoiceOptions,
-  LanguageOption,
-} from "@/types";
-
-// Initialize Groq client
-const groq = new Groq({
-  apiKey: import.meta.env.VITE_GROQ_API_KEY,
-  dangerouslyAllowBrowser: true,
-});
+import { useGroq } from "@/hooks/use-groq";
+import type { Language, VoiceOptions, LanguageOption } from "@/types";
 
 // Available voices for different languages
 const voiceOptions: VoiceOptions = {
@@ -61,6 +51,7 @@ const languageOptions: LanguageOption[] = [
 ];
 
 export function TextToSpeech() {
+  const { groq, isLoading, hasApiKey } = useGroq();
   const [text, setText] = useState<string>("");
   const [selectedLanguage, setSelectedLanguage] = useState<Language>("arabic");
   const [selectedVoice, setSelectedVoice] = useState<string>(
@@ -78,6 +69,11 @@ export function TextToSpeech() {
   }, [selectedLanguage]);
 
   const generateSpeech = async () => {
+    if (!groq) {
+      setError("Groq client not initialized. Please check your API key.");
+      return;
+    }
+
     if (!text.trim()) {
       setError("Please enter some text to convert to speech");
       return;
@@ -224,7 +220,7 @@ export function TextToSpeech() {
           {/* Generate Button */}
           <Button
             onClick={generateSpeech}
-            disabled={isGenerating || !text.trim()}
+            disabled={isGenerating || !text.trim() || isLoading || !hasApiKey}
             className="w-full"
             size="lg"
           >
@@ -275,13 +271,43 @@ export function TextToSpeech() {
             </Card>
           )}
 
+          {/* API Key Information */}
+          {!hasApiKey && (
+            <div className="bg-amber-50 border border-amber-200 dark:bg-amber-900/20 dark:border-amber-800 rounded-md p-4">
+              <h3 className="font-semibold text-amber-900 dark:text-amber-100 mb-2">
+                API Key Required:
+              </h3>
+              <ul className="text-sm text-amber-800 dark:text-amber-200 space-y-1">
+                <li>• You need a Groq API key to use this service</li>
+                <li>
+                  • Get your free API key from{" "}
+                  <a
+                    href="https://console.groq.com"
+                    target="_blank"
+                    rel="noopener noreferrer"
+                    className="underline hover:no-underline"
+                  >
+                    Groq Console
+                  </a>
+                </li>
+                <li>• The API key will be stored securely in your browser</li>
+                <li>• Check the sidebar for API key status</li>
+              </ul>
+            </div>
+          )}
+
           {/* Instructions */}
           <div className="bg-blue-50 border border-blue-200 dark:bg-blue-900/20 dark:border-blue-800 rounded-md p-4">
             <h3 className="font-semibold text-blue-900 dark:text-blue-100 mb-2">
               Instructions:
             </h3>
             <ul className="text-sm text-blue-800 dark:text-blue-200 space-y-1">
-              <li>• Select your preferred language from the dropdown</li>
+              <li>
+                •{" "}
+                {!hasApiKey
+                  ? "First, set up your API key (see above)"
+                  : "Select your preferred language from the dropdown"}
+              </li>
               <li>• Enter text in the selected language</li>
               <li>• Choose from available voices for that language</li>
               <li>• Click "Generate Speech" to create the audio</li>
