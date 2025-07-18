@@ -543,6 +543,32 @@ export function SpeechToText() {
 
         {/* Right Sidebar */}
         <div className="space-y-2">
+          {/* Instructions */}
+          <Card>
+            <CardHeader>
+              <CardTitle className="flex items-center gap-2">
+                <Info className="h-5 w-5" />
+                Instructions
+              </CardTitle>
+            </CardHeader>
+            <CardContent>
+              <div className="space-y-2 text-sm">
+                <p>
+                  • Choose the model that best fits your needs (accuracy vs
+                  speed vs cost)
+                </p>
+                <p>• Upload an audio file or record directly in your browser</p>
+                <p>• Optionally specify the language for better accuracy</p>
+                <p>• Supported formats: {supportedFormats.join(", ")}</p>
+                <p>• Maximum file size: 25MB (free tier)</p>
+                <p>
+                  • For best results, use clear audio with minimal background
+                  noise
+                </p>
+              </div>
+            </CardContent>
+          </Card>
+
           {/* Model Selection */}
           <Card>
             <CardHeader>
@@ -552,7 +578,30 @@ export function SpeechToText() {
               </CardTitle>
             </CardHeader>
             <CardContent>
-              <div className="space-y-4 mb-6">
+              {/* Language Selection */}
+              <div className="space-y-2 mb-3 flex flex-row items-center text-center justify-between">
+                <Label htmlFor="language-select">Language (Optional)</Label>
+                <Select
+                  value={selectedLanguage}
+                  onValueChange={setSelectedLanguage}
+                >
+                  <SelectTrigger id="language-select">
+                    <SelectValue placeholder="Auto-detect language" />
+                  </SelectTrigger>
+                  <SelectContent>
+                    <SelectItem value="auto">Auto-detect</SelectItem>
+                    {languages.map((lang) => (
+                      <SelectItem key={lang.code} value={lang.code}>
+                        <div className="flex items-center gap-2">
+                          <Languages className="h-4 w-4" />
+                          {lang.name}
+                        </div>
+                      </SelectItem>
+                    ))}
+                  </SelectContent>
+                </Select>
+              </div>
+              <div className="space-y-4">
                 {models.map((model) => {
                   const Icon = model.icon;
                   return (
@@ -602,56 +651,6 @@ export function SpeechToText() {
                     </div>
                   );
                 })}
-              </div>
-
-              {/* Language Selection */}
-              <div className="space-y-2 flex flex-row items-center text-center justify-between">
-                <Label htmlFor="language-select">Language (Optional)</Label>
-                <Select
-                  value={selectedLanguage}
-                  onValueChange={setSelectedLanguage}
-                >
-                  <SelectTrigger id="language-select">
-                    <SelectValue placeholder="Auto-detect language" />
-                  </SelectTrigger>
-                  <SelectContent>
-                    <SelectItem value="auto">Auto-detect</SelectItem>
-                    {languages.map((lang) => (
-                      <SelectItem key={lang.code} value={lang.code}>
-                        <div className="flex items-center gap-2">
-                          <Languages className="h-4 w-4" />
-                          {lang.name}
-                        </div>
-                      </SelectItem>
-                    ))}
-                  </SelectContent>
-                </Select>
-              </div>
-            </CardContent>
-          </Card>
-
-          {/* Instructions */}
-          <Card>
-            <CardHeader>
-              <CardTitle className="flex items-center gap-2">
-                <Info className="h-5 w-5" />
-                Instructions
-              </CardTitle>
-            </CardHeader>
-            <CardContent>
-              <div className="space-y-2 text-sm">
-                <p>
-                  • Choose the model that best fits your needs (accuracy vs
-                  speed vs cost)
-                </p>
-                <p>• Upload an audio file or record directly in your browser</p>
-                <p>• Optionally specify the language for better accuracy</p>
-                <p>• Supported formats: {supportedFormats.join(", ")}</p>
-                <p>• Maximum file size: 25MB (free tier)</p>
-                <p>
-                  • For best results, use clear audio with minimal background
-                  noise
-                </p>
               </div>
             </CardContent>
           </Card>
