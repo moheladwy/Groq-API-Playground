@@ -4,6 +4,7 @@ import { SpeechToText } from "@/components/speech-to-text";
 import { ImagesAndVision } from "@/components/images-and-vision";
 import { VoiceLibrary } from "@/components/voice-library";
 import { VisionLibrary } from "@/components/vision-library";
+import { AudioPlayerDemo } from "@/components/audio-player-demo";
 import App from "@/App";
 
 const routes: RouteObject[] = [
@@ -34,6 +35,10 @@ const routes: RouteObject[] = [
       {
         path: "vision-library",
         element: <VisionLibrary />,
+      },
+      {
+        path: "audio-player",
+        element: <AudioPlayerDemo />,
       },
     ],
   },
