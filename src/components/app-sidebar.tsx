@@ -25,6 +25,7 @@ import {
   CheckCircle,
   XCircle,
   Loader2,
+  PlayCircle,
 } from "lucide-react";
 
 // Navigation items
@@ -53,6 +54,11 @@ const navItems = [
     title: "Vision Library",
     url: "/vision-library",
     icon: Sparkles,
+  },
+  {
+    title: "Audio Player",
+    url: "/audio-player",
+    icon: PlayCircle,
   },
 ];
 
