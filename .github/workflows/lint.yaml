@@ -1,0 +1,50 @@
+name: Lint and Type Check
+
+on:
+  push:
+    branches-ignore: [main, master]
+  pull_request:
+    branches: [main, master]
+
+jobs:
+  lint:
+    name: Lint and Type Check
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: Checkout code
+        uses: actions/checkout@v4
+
+      - name: Setup Node.js
+        uses: actions/setup-node@v4
+        with:
+          node-version: "20"
+          cache: "npm"
+
+      - name: Install dependencies
+        run: npm ci
+
+      - name: Run ESLint
+        run: npm run lint
+
+      - name: Run TypeScript type check
+        run: npx tsc --noEmit
+
+      - name: Build project
+        run: npm run build
+
+  lint-summary:
+    name: Lint Summary
+    runs-on: ubuntu-latest
+    if: always()
+    needs: [lint]
+
+    steps:
+      - name: Check lint results
+        run: |
+          if [ "${{ needs.lint.result }}" == "success" ]; then
+            echo "✅ All linting checks passed!"
+          else
+            echo "❌ Linting checks failed!"
+            exit 1
+          fi
